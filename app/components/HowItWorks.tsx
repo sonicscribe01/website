@@ -41,10 +41,10 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-20 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#1A1A1A] relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" aria-hidden="true" />
       <div className="relative container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
           How SonicScribe Works
         </h2>
-        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16">
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
           Experience the power of AI-driven audio transcription with our simple three-step process. From upload to edit, we've got you covered.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -65,6 +65,11 @@ export default function HowItWorks() {
               </ul>
             </div>
           ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Button className="bg-[#FF4500] hover:bg-[#FF6347] text-white" asChild>
+            <Link href="/free-trial">Get Started Now</Link>
+          </Button>
         </div>
       </div>
     </section>

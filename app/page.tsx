@@ -1,12 +1,12 @@
-import React from 'react'
-import Header from '../components/Header'
-import Hero from '../components/Hero'
-import Features from '../components/Features'
-import HowItWorks from '../components/HowItWorks'
-import Pricing from '../components/Pricing'
-import CTA from '../components/CTA'
-import ContactSection from '../components/ContactSection'
-import Footer from '../components/Footer'
+import Header from '@/components/Header'
+import Hero from '@/components/Hero'
+import Features from '@/components/Features'
+import HowItWorks from '@/components/HowItWorks'
+import Pricing from '@/components/Pricing'
+import CTA from '@/components/CTA'
+import FAQ from '@/components/FAQ'
+import Footer from '@/components/Footer'
+import ContactSection from '@/components/ContactSection'
 
 export default function Home() {
   return (
@@ -14,11 +14,20 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Features />
-        <HowItWorks />
-        <Pricing />
+        <section id="features">
+          <Features />
+        </section>
+        <section id="how-it-works">
+          <HowItWorks />
+        </section>
+        <section id="pricing">
+          <Pricing />
+        </section>
         <CTA />
-        <ContactSection />
+        <FAQ />
+        <section id="contact-section">
+          <ContactSection />
+        </section>
       </main>
       <Footer />
     </div>

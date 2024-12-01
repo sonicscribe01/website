@@ -1,11 +1,24 @@
 'use client'
 
+import { useEffect } from 'react'
+
 export default function Error({
+  error,
   reset,
 }: {
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name,
+      cause: error.cause,
+    })
+  }, [error])
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
       <div className="text-center px-4">
@@ -13,7 +26,7 @@ export default function Error({
           Oops! Something went wrong.
         </h1>
         <p className="text-[1rem] text-gray-300 mb-8 max-w-[600px]">
-          We&apos;re sorry for the inconvenience. Please try refreshing the page or contact support if the problem persists.
+          We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem persists.
         </p>
         <button
           onClick={() => reset()}
