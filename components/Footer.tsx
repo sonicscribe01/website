@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 
-const Footer: React.FC = () => {
+export default function Footer() {
   return (
     <footer className="bg-[#0A0A0A] text-gray-300 py-4">
       <div className="container mx-auto px-4">
@@ -19,6 +19,4 @@ const Footer: React.FC = () => {
     </footer>
   )
 }
-
-export default Footer
 

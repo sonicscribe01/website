@@ -36,7 +36,7 @@ const steps = [
   }
 ]
 
-const HowItWorks: React.FC = () => {
+export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-20 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#1A1A1A] relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" aria-hidden="true" />
@@ -75,6 +75,4 @@ const HowItWorks: React.FC = () => {
     </section>
   )
 }
-
-export default HowItWorks
 
