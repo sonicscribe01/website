@@ -1,31 +1,14 @@
-import { Metadata } from 'next'
+'use client'
 
 interface SeoProps {
-  title: string
-  description: string
-  canonical?: string
+  title?: string
+  description?: string
 }
 
-export function generateMetadata({ title, description, canonical }: SeoProps): Metadata {
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      siteName: 'SonicScribe',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary',
-      title,
-      description,
-    },
-    ...(canonical ? { alternates: { canonical } } : {}),
-  }
-}
-
-export default function Seo({ title, description, canonical }: SeoProps) {
-  return null; // This component doesn't render anything directly
+export default function Seo({ 
+  title = 'SonicScribe', 
+  description = 'AI-powered audio transcription and translate for professionals'
+}: SeoProps) {
+  return null // Next 13 handles SEO through metadata
 }
 
