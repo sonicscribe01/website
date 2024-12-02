@@ -1,12 +1,11 @@
 import { Metadata } from 'next'
-import { generateMetadata } from '../components/Seo'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-export const metadata: Metadata = generateMetadata({
-  title: "SonicScribe - Legal Information",
-  description: "Terms of Service and Privacy Policy for SonicScribe's AI-powered audio transcription service."
-})
+export const metadata: Metadata = {
+  title: 'Legal - SonicScribe',
+  description: 'Legal information and privacy policy for SonicScribe',
+}
 
 export default function Legal() {
   return (
