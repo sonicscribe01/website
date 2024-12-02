@@ -1,7 +1,7 @@
 import { Input, Textarea, Button } from '@nextui-org/react';
 
 interface ContactFormProps {
-  handleSubmit: (e: React.FormEvent) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
   isSubmitting?: boolean;
   required?: boolean;
   improvedStates?: boolean;
