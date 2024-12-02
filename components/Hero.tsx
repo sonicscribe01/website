@@ -187,7 +187,10 @@ export default function Hero() {
           <label htmlFor="language-select" className="block text-sm font-medium text-[#FF4500] mb-2">
             Select Translation Language (Optional)
           </label>
-          <Select onValueChange={(value) => setSelectedLanguage(value || null)} value={selectedLanguage || undefined}>
+          <Select 
+            onValueChange={(value: string) => setSelectedLanguage(value as SupportedLanguage || '')} 
+            value={selectedLanguage}
+          >
             <SelectTrigger className="w-full bg-[#2A2A2A] border-[#FF4500]/50 text-white">
               <SelectValue placeholder="Select language for translation" />
             </SelectTrigger>
