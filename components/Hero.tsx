@@ -25,11 +25,6 @@ export default function Hero() {
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage | ''>('')
   const [translatedTranscription, setTranslatedTranscription] = useState('')
 
-  // Update translations type
-  const translations: Translations = {
-    es: "Hola Mundo",
-    fr: "Bonjour le Monde"
-  }
 
   const toggleRecording = () => {
     setIsRecording((prev) => !prev)
@@ -52,7 +47,6 @@ export default function Hero() {
       setTranscription(prev => prev + fullText[currentIndex])
       if (selectedLanguage) {
         setTranslatedTranscription(prev => {
-          // Now TypeScript knows selectedLanguage can only be 'es' or 'fr'
           const translatedChar = translations[selectedLanguage][currentIndex] || ' '
           return prev + translatedChar
         })
@@ -131,6 +125,17 @@ export default function Hero() {
     // In a real implementation, this would open a share dialog or copy to clipboard
     alert('Sharing functionality would be implemented here')
   }
+
+  useEffect(() => {
+    const translations: Translations = {
+      es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de última generación.",
+      fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
+    }
+    
+    if (selectedLanguage) {
+      setTranslatedText(translations[selectedLanguage])
+    }
+  }, [selectedLanguage])
 
   return (
     <section className="py-20 px-4 text-center text-white">
