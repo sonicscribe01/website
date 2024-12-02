@@ -12,7 +12,11 @@ type SupportedLanguage = 'es' | 'fr';
 interface Translations {
   es: string;
   fr: string;
-  default: string;
+}
+
+// Type guard function
+function isValidLanguage(lang: string): lang is SupportedLanguage {
+  return lang === 'es' || lang === 'fr';
 }
 
 export default function Hero() {
@@ -29,8 +33,7 @@ export default function Hero() {
   // Move translations outside the effect
   const translations: Translations = {
     es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de última generación.",
-    fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA.",
-    default: "Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service."
+    fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
   }
 
   const toggleRecording = () => {
@@ -134,9 +137,12 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    // Use default text if no language is selected
-    const text = selectedLanguage ? translations[selectedLanguage] : translations.default
-    setTranslatedText(text)
+    // Use type guard to check if language is valid
+    if (isValidLanguage(selectedLanguage)) {
+      setTranslatedText(translations[selectedLanguage])
+    } else {
+      setTranslatedText("Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service.")
+    }
   }, [selectedLanguage])
 
   return (
