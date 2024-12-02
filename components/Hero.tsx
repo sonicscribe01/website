@@ -5,6 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Mic, Download, Share2 } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+// Add type for supported languages
+type SupportedLanguage = 'es' | 'fr';
+
+// Add type for translations
+interface Translations {
+  es: string;
+  fr: string;
+}
+
 export default function Hero() {
   const [isRecording, setIsRecording] = useState(false)
   const [transcription, setTranscription] = useState('')
@@ -13,9 +22,14 @@ export default function Hero() {
   const [keyPoints, setKeyPoints] = useState<string[]>([])
   const [translatedText, setTranslatedText] = useState('')
   const [audioUrl, setAudioUrl] = useState('')
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null)
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage | ''>('')
   const [translatedTranscription, setTranslatedTranscription] = useState('')
 
+  // Update translations type
+  const translations: Translations = {
+    es: "Hola Mundo",
+    fr: "Bonjour le Monde"
+  }
 
   const toggleRecording = () => {
     setIsRecording((prev) => !prev)
@@ -38,6 +52,7 @@ export default function Hero() {
       setTranscription(prev => prev + fullText[currentIndex])
       if (selectedLanguage) {
         setTranslatedTranscription(prev => {
+          // Now TypeScript knows selectedLanguage can only be 'es' or 'fr'
           const translatedChar = translations[selectedLanguage][currentIndex] || ' '
           return prev + translatedChar
         })
