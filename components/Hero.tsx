@@ -113,9 +113,7 @@ export default function Hero() {
   }
 
   const translateText = () => {
-    if (selectedLanguage) {
-      setTranslatedText(getTranslation(selectedLanguage, translations))
-    }
+    setTranslatedText(getTranslation(selectedLanguage, translations))
   }
 
   const generateAudioUrl = () => {
