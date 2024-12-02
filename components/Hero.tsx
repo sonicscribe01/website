@@ -14,6 +14,13 @@ interface Translations {
   fr: string;
 }
 
+// Add type for transcription translations
+interface TranscriptionTranslations {
+  es: string;
+  fr: string;
+  [key: string]: string;  // Add index signature for transcription translations
+}
+
 // Type guard function
 function isValidLanguage(lang: string): lang is SupportedLanguage {
   return lang === 'es' || lang === 'fr';
@@ -39,9 +46,9 @@ export default function Hero() {
   const defaultText = "Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service."
 
   // Safe translation getter
-  const getTranslation = (lang: SupportedLanguage | '') => {
+  const getTranslation = (lang: SupportedLanguage | '', trans: Translations | TranscriptionTranslations) => {
     if (lang === 'es' || lang === 'fr') {
-      return translations[lang]
+      return trans[lang]
     }
     return defaultText
   }
@@ -55,35 +62,35 @@ export default function Hero() {
   }
 
   const simulateTranscription = () => {
-  const fullText = "Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service. Our advanced algorithms ensure high accuracy and fast results, making it perfect for professionals in various fields such as journalism, content creation, and academic research."
-  const translations = {
-    es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de vanguardia. Nuestros algoritmos avanzados garantizan alta precisión y resultados rápidos, haciéndolo perfecto para profesionales en diversos campos como periodismo, creación de contenido e investigación académica.",
-    fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA. Nos algorithmes avancés assurent une haute précision et des résultats rapides, ce qui le rend parfait pour les professionnels dans divers domaines tels que le journalisme, la création de contenu et la recherche académique."
-  }
-  let currentIndex = 0
-
-  const interval = setInterval(() => {
-    if (currentIndex < fullText.length) {
-      setTranscription(prev => prev + fullText[currentIndex])
-      if (selectedLanguage) {
-        setTranslatedTranscription(prev => {
-          const translatedChar = translations[selectedLanguage][currentIndex] || ' '
-          return prev + translatedChar
-        })
-      }
-      currentIndex++
-    } else {
-      clearInterval(interval)
-      setIsRecording(false)
-      generateSummary()
-      generateKeyPoints()
-      generateAudioUrl()
-      if (selectedLanguage) {
-        translateText()
-      }
+    const fullText = "Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service. Our advanced algorithms ensure high accuracy and fast results, making it perfect for professionals in various fields such as journalism, content creation, and academic research."
+    const transcriptionTranslations: TranscriptionTranslations = {
+      es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de vanguardia. Nuestros algoritmos avanzados garantizan alta precisión y resultados rápidos, haciéndolo perfecto para profesionales en diversos campos como periodismo, creación de contenido e investigación académica.",
+      fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA. Nos algorithmes avancés assurent une haute précision et des résultats rapides, ce qui le rend parfait pour les professionnels dans divers domaines tels que le journalisme, la création de contenu et la recherche académique."
     }
-  }, 30)
-}
+    let currentIndex = 0
+
+    const interval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setTranscription(prev => prev + fullText[currentIndex])
+        if (selectedLanguage && selectedLanguage in transcriptionTranslations) {
+          const translatedText = transcriptionTranslations[selectedLanguage]
+          setTranslatedTranscription(prev => {
+            return prev + (translatedText[currentIndex] || ' ')
+          })
+        }
+        currentIndex++
+      } else {
+        clearInterval(interval)
+        setIsRecording(false)
+        generateSummary()
+        generateKeyPoints()
+        generateAudioUrl()
+        if (selectedLanguage) {
+          translateText()
+        }
+      }
+    }, 30)
+  }
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -106,11 +113,9 @@ export default function Hero() {
   }
 
   const translateText = () => {
-    const translations = {
-      es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de vanguardia.",
-      fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
+    if (selectedLanguage) {
+      setTranslatedText(getTranslation(selectedLanguage, translations))
     }
-    setTranslatedText(translations[selectedLanguage])
   }
 
   const generateAudioUrl = () => {
@@ -147,7 +152,7 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    setTranslatedText(getTranslation(selectedLanguage))
+    setTranslatedText(getTranslation(selectedLanguage, translations))
   }, [selectedLanguage])
 
   return (
