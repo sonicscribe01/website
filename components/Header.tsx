@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Mic } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { EarlyAccessModal } from './EarlyAccessModal'
+import { Dialog } from "@/components/ui/dialog"
 
 const navLinks = [
   { href: "/#features", label: "Features", id: "features" },
