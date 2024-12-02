@@ -1,6 +1,5 @@
 import * as React from "react"
-
-import { cn } from "@/app/lib/utils"
+import { cn } from "@/lib/utils"
 
 // ... rest of the file remains unchanged
 
