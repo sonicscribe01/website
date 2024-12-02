@@ -1,3 +1,4 @@
+'use client'
 import { Metadata } from 'next'
 import Seo from '@/components/Seo'
 import FreeTrialForm from '@/components/FreeTrialForm'
