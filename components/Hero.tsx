@@ -36,6 +36,8 @@ export default function Hero() {
     fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
   }
 
+  const defaultText = "Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service."
+
   const toggleRecording = () => {
     setIsRecording((prev) => !prev)
     if (!isRecording) {
@@ -137,12 +139,9 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    // Use type guard to check if language is valid
-    if (isValidLanguage(selectedLanguage)) {
-      setTranslatedText(translations[selectedLanguage])
-    } else {
-      setTranslatedText("Welcome to SonicScribe, the cutting-edge AI-powered audio transcription service.")
-    }
+    // Use optional chaining and nullish coalescing
+    const text = selectedLanguage ? translations[selectedLanguage as SupportedLanguage] ?? defaultText : defaultText
+    setTranslatedText(text)
   }, [selectedLanguage])
 
   return (
