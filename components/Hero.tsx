@@ -25,6 +25,11 @@ export default function Hero() {
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage | ''>('')
   const [translatedTranscription, setTranslatedTranscription] = useState('')
 
+  // Move translations outside the effect
+  const translations: Translations = {
+    es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de última generación.",
+    fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
+  }
 
   const toggleRecording = () => {
     setIsRecording((prev) => !prev)
@@ -127,13 +132,9 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    const translations: Translations = {
-      es: "Bienvenido a SonicScribe, el servicio de transcripción de audio impulsado por IA de última generación.",
-      fr: "Bienvenue sur SonicScribe, le service de transcription audio de pointe alimenté par l'IA."
-    }
-    
-    if (selectedLanguage) {
-      setTranslatedText(translations[selectedLanguage])
+    // Add null check and type guard
+    if (selectedLanguage && (selectedLanguage in translations)) {
+      setTranslatedText(translations[selectedLanguage as keyof Translations])
     }
   }, [selectedLanguage])
 
