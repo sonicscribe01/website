@@ -1,66 +1,71 @@
-import { Input, Textarea, Button } from '@nextui-org/react';
+"use client"
 
-interface ContactFormProps {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void> | void;
-  isSubmitting?: boolean;
-  required?: boolean;
-  improvedStates?: boolean;
-}
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/components/ui/use-toast'
 
-const ContactForm = ({ 
-  handleSubmit, 
-  isSubmitting = false, 
-  required = true, 
-  improvedStates = false 
-}: ContactFormProps) => {
-  const inputClasses = `mt-1 w-full px-3 py-2 bg-[#1A1A1A] border border-gray-600 rounded-md text-white shadow-sm
-  focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-[#FF4500]
-  hover:border-[#FF4500]/50
-  ${improvedStates ? 'transition-colors duration-200' : ''}`;
+export default function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+
+    // Here you would typically send the form data to your backend
+    // For this example, we'll just simulate a submission
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    setIsSubmitting(false)
+    toast({
+      title: "Message sent!",
+      description: "We'll get back to you as soon as possible.",
+    })
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact Form">
-      <Input
-        type="text"
-        id="name"
-        name="name"
-        required={required}
-        aria-required={required}
-        className={inputClasses}
-        placeholder="Your Name"
-      />
-      <Input
-        type="email"
-        id="email"
-        name="email"
-        required={required}
-        aria-required={required}
-        className={inputClasses}
-        placeholder="Your Email"
-      />
-      <Textarea
-        id="message"
-        name="message"
-        rows={4}
-        required={required}
-        aria-required={required}
-        className={inputClasses}
-        placeholder="Your Message"
-      />
-      <Button 
-        type="submit" 
-        disabled={isSubmitting} 
-        className="bg-[#FF4500] hover:bg-[#FF6347] active:bg-[#E63900] text-white transition-colors duration-200 rounded-md" 
-        aria-label="Send message"
-      >
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+          Name
+        </label>
+        <Input
+          type="text"
+          id="name"
+          name="name"
+          required
+          className="mt-1 bg-[#1A1A1A] text-white"
+        />
+      </div>
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+          Email
+        </label>
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          required
+          className="mt-1 bg-[#1A1A1A] text-white"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+          Message
+        </label>
+        <Textarea
+          id="message"
+          name="message"
+          rows={4}
+          required
+          className="mt-1 bg-[#1A1A1A] text-white"
+        />
+      </div>
+      <Button type="submit" disabled={isSubmitting} className="bg-[#FF4500] hover:bg-[#FF6347] text-white">
         {isSubmitting ? 'Sending...' : 'Send Message'}
       </Button>
-      <div aria-live="polite" className="sr-only">
-        {isSubmitting ? 'Sending your message...' : ''}
-      </div>
     </form>
-  );
-};
-
-export default ContactForm;
+  )
+}
 

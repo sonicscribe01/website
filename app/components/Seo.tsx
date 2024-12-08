@@ -1,16 +1,12 @@
 import { Metadata } from 'next'
 
 interface SeoProps {
-  title?: string
-  description?: string
+  title: string
+  description: string
   canonical?: string
 }
 
-export function generateMetadata({ 
-  title = 'SonicScribe', 
-  description = 'AI-powered audio transcription and translate for professionals',
-  canonical 
-}: SeoProps): Metadata {
+export function generateMetadata({ title, description, canonical }: SeoProps): Metadata {
   return {
     title,
     description,
@@ -30,6 +26,6 @@ export function generateMetadata({
 }
 
 export default function Seo({ title, description, canonical }: SeoProps) {
-  return null // Next 13 handles SEO through metadata
+  return null; // This component doesn't render anything directly
 }
 

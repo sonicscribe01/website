@@ -1,44 +1,22 @@
-import Link from 'next/link'
+import React from 'react'
+import { Button } from '@/components/ui/button'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0A0A] border-t border-gray-800">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-bold mb-4">SonicScribe</h3>
-            <p className="text-gray-400">
-              AI-powered audio transcription for professionals.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Product</h4>
-            <ul className="space-y-2">
-              <li><Link href="/features" className="text-gray-400 hover:text-white">Features</Link></li>
-              <li><Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link></li>
-              <li><Link href="/enterprise" className="text-gray-400 hover:text-white">Enterprise</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
-              <li><Link href="/about" className="text-gray-400 hover:text-white">About</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
-              <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2">
-              <li><Link href="/privacy" className="text-gray-400 hover:text-white">Privacy</Link></li>
-              <li><Link href="/terms" className="text-gray-400 hover:text-white">Terms</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} SonicScribe. All rights reserved.</p>
-        </div>
+    <footer className="bg-[#0A0A0A] text-gray-300 py-4">
+      <div className="container mx-auto px-4">
+        <p className="text-center">
+          &copy; {new Date().getFullYear()} SonicScribe.ai. All rights reserved.
+        </p>
+        <Button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 bg-[#FF4500] hover:bg-[#FF6347] text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+          aria-label="Back to top"
+        >
+          ↑
+        </Button>
       </div>
     </footer>
   )
 }
+

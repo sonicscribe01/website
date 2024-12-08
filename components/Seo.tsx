@@ -31,4 +31,5 @@ export function generateMetadata({
 
 export default function Seo({ title, description, canonical }: SeoProps) {
   return null // Next 13 handles SEO through metadata
-} 
+}
+
