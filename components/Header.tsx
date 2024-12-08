@@ -4,13 +4,22 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Mic } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import EarlyAccessModal from './EarlyAccessModal'
+
+const navLinks = [
+  { href: "/#features", label: "Features", id: "features" },
+  { href: "/#how-it-works", label: "How It Works", id: "how-it-works" },
+  { href: "/#pricing", label: "Pricing", id: "pricing" },
+  { href: "/#contact-section", label: "Contact", id: "contact-section" }
+];
 
 export default function Header() {
   const [activeSection, setActiveSection] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['powerful-features', 'how-it-works', 'pricing', 'contact-section']
+      const sections = ['features', 'how-it-works', 'pricing', 'contact-section']
       const currentSection = sections.find(section => {
         const element = document.getElementById(section)
         if (element) {
@@ -29,7 +38,7 @@ export default function Header() {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('/#', '');
-    const elem = document.getElementById(targetId === 'features' ? 'powerful-features' : targetId);
+    const elem = document.getElementById(targetId);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth' });
       window.history.pushState(null, '', href);
@@ -47,12 +56,7 @@ export default function Header() {
           </span>
         </Link>
         <nav className="hidden md:flex space-x-6" aria-label="Main Navigation">
-          {[
-            { href: "/#features", label: "Features", id: "powerful-features" },
-            { href: "/#how-it-works", label: "How It Works", id: "how-it-works" },
-            { href: "/#pricing", label: "Pricing", id: "pricing" },
-            { href: "/#contact", label: "Contact", id: "contact-section" }
-          ].map(({ href, label, id }) => (
+          {navLinks.map(({ href, label, id }) => (
             <Link
               key={href}
               href={href}
@@ -66,15 +70,17 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <div className="flex space-x-2">
-          <Button variant="outline" className="text-[#FF4500] border-[#FF4500] hover:bg-[#FF4500] hover:text-white" asChild>
-            <Link href="/signin">Sign In</Link>
-          </Button>
-          <Button className="bg-[#FF4500] hover:bg-[#FF6347] text-white" asChild>
-            <Link href="/signup">Sign Up</Link>
+        <div className="flex">
+          <Button 
+            variant="default"
+            className="bg-[#FF4500] hover:bg-[#FF6347] text-white" 
+            onClick={() => setIsModalOpen(true)}
+          >
+            Request Access
           </Button>
         </div>
       </div>
+      <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </header>
   )
 }

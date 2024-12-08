@@ -1,3 +1,5 @@
+'use client'
+
 import { Brain, Layers, NetworkIcon as Network2 } from 'lucide-react'
 import { Check } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
@@ -52,10 +54,10 @@ export default function Features() {
   return (
     <section className="py-20 px-4 bg-gradient-to-r from-[#0A0A0A] via-[#111111] to-[#1A1A1A]">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-white mb-12">Powerful Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h2 className="text-3xl font-bold text-center text-white mb-12">Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="relative group bg-[#111111] border-zinc-800/50 hover:border-[#FF4500] transition-all duration-300">
+            <Card key={index} className="relative group bg-zinc-800 border-zinc-800/50 hover:border-[#FF4500] transition-all duration-300">
               <IconContainer>
                 {feature.icon}
               </IconContainer>

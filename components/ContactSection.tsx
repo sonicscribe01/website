@@ -1,56 +1,142 @@
-import React from 'react'
-import ContactForm from './ContactForm'
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Send } from 'lucide-react'
 
 export default function ContactSection() {
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    const formData = new FormData(e.currentTarget)
+    const object = Object.fromEntries(formData)
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Replace with your key
+          ...object
+        })
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setIsSuccess(true)
+        e.currentTarget.reset()
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <section className="py-20 bg-gradient-to-b from-[#1A1A1A] to-[#111111]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-8 text-white">
-          Let's Connect
-        </h2>
-        <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
-          Have questions about SonicScribe or need assistance? We're here to help. Reach out to our team, and we'll get back to you within 24 hours.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          <div className="bg-[#222222] p-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 flex flex-col h-full">
-            <h3 className="text-2xl font-semibold text-[#FF4500] mb-6">Contact Information</h3>
-            <ul className="space-y-4 text-gray-300 flex-grow">
-              <li className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-[#FF4500]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <a href="mailto:hello@sonicscribe.ai" className="hover:text-[#FF4500] transition-colors duration-300">hello@sonicscribe.ai</a>
-              </li>
-              <li className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-[#FF4500]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <address className="not-italic">USA</address>
-              </li>
-            </ul>
-            <div className="mt-8 text-gray-300">
-              <h4 className="text-xl font-semibold text-white mb-4">About SonicScribe</h4>
-              <p>SonicScribe is a cutting-edge AI-powered audio transcription service. We combine advanced machine learning algorithms with intuitive user interfaces to provide fast, accurate, and reliable transcriptions for professionals across various industries.</p>
-            </div>
-            <div className="mt-8">
-              <h4 className="text-xl font-semibold text-white mb-4">Follow Us</h4>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-300 hover:text-[#FF4500] transition-colors duration-300" aria-label="Follow us on X">
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+    <section className="py-20 bg-gradient-to-b from-[#1A1A1A] to-[#0A0A0A] relative overflow-hidden">
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px]" aria-hidden="true" />
+      <div className="relative container mx-auto px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+              Let's Connect
+            </h2>
+            <p className="text-gray-400 text-lg">
+              Have questions about SonicScribe? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
           </div>
-          <div className="bg-[#222222] p-8 rounded-lg shadow-lg">
-            <h3 className="text-2xl font-semibold text-[#FF4500] mb-6">Send Us a Message</h3>
-            <ContactForm />
-          </div>
+          
+          {isSuccess ? (
+            <div className="bg-[#2A2A2A] p-8 rounded-lg shadow-xl border border-gray-700">
+              <h3 className="text-2xl font-semibold text-[#FF4500] mb-4">Thank You!</h3>
+              <p className="text-gray-300">
+                We've received your message and will get back to you soon.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-[#1A1A1A] p-8 rounded-lg shadow-2xl border border-gray-800">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      required
+                      className="w-full px-4 py-3 bg-[#2A2A2A] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all duration-200"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      required
+                      className="w-full px-4 py-3 bg-[#2A2A2A] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all duration-200"
+                      placeholder="you@example.com"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    id="subject"
+                    required
+                    className="w-full px-4 py-3 bg-[#2A2A2A] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all duration-200"
+                    placeholder="What's this about?"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows={6}
+                    required
+                    className="w-full px-4 py-3 bg-[#2A2A2A] border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all duration-200 resize-none"
+                    placeholder="Your message..."
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-[#FF4500] to-[#FF6347] hover:from-[#FF6347] hover:to-[#FF4500] text-white font-semibold py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                >
+                  {isLoading ? (
+                    'Sending...'
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </section>
   )
 }
-
