@@ -23,7 +23,7 @@ export default function ContactSection() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // Replace with your key
+          access_key: 'ce3c6169-1d52-42e1-b9ba-c6b297ead107', // Replace with your key
           ...object
         })
       })

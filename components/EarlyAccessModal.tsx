@@ -29,7 +29,7 @@ export default function EarlyAccessModal({ isOpen, onClose }: EarlyAccessModalPr
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'Yce3c6169-1d52-42e1-b9ba-c6b297ead107', // Replace with your key
+          access_key: 'YOUR_ACTUAL_WEB3FORMS_KEY_HERE', // Replace this with your key
           ...object
         })
       })
