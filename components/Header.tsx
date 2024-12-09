@@ -9,7 +9,7 @@ import EarlyAccessModal from './EarlyAccessModal'
 const navLinks = [
   { href: "/#features", label: "Features", id: "features" },
   { href: "/#how-it-works", label: "How It Works", id: "how-it-works" },
-  { href: "/#pricing", label: "Pricing", id: "pricing" },
+  { href: "/#who-benefits", label: "Who Benefits?", id: "who-benefits" },
   { href: "/#contact-section", label: "Contact", id: "contact-section" }
 ];
 

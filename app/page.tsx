@@ -21,7 +21,9 @@ export default function Home() {
         <section id="how-it-works">
           <HowItWorks />
         </section>
-        <CTA />
+        <section id="who-benefits">
+          <CTA />
+        </section>
         <FAQ />
         <section id="contact-section">
           <ContactSection />
